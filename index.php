@@ -39,28 +39,78 @@
         ],
 
     ];
-
+// foreach ($hotels as $hotel) {
+//     echo "Hotel <br>";
+//     foreach ($hotel as $key => $value) {
+//         echo "$key --- $value";
+//         echo "<br>";
+//     }
+// }
+$secondHotels = $hotels;
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>php-hotel</title>
 </head>
 <body>
     <main>
-        <ul>
-            <?php foreach ($hotels as $hotel) { ?>
-                <li>
-                    <?php echo $hotel['name']; ?>
-                    <?php echo $hotel['description']; ?>
-                    <?php echo $hotel['parking']; ?>
-                    <?php echo $hotel['vote']; ?>
-                    <?php echo $hotel['distance_to_center']; ?>
-                </li>
-            <?php } ?>
-        </ul>
+        <section class="row searchbar">
+            <div class="col6">
+                <form action="" method="get">
+                    <div class="mb-3">
+                        <label for="parking">Parking?</label>
+                        <select name="parking" id="parking">
+                            <option value="0">Not Needed</option>
+                            <option value="1">Without Parking</option>
+                            <option value="2">With Parking</option>
+                        </select>
+                        <button type="submit">
+                            filter
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="col6"></div>
+        </section>
+        <section class="content">
+            <table class="table table-hover ">
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Parking
+                    </th>
+                    <th>
+                        Vote
+                    </th>
+                    <th>
+                        Distance to Center
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($hotels as $hotel) {?>
+                <tr>
+                    <?php foreach ($hotel as $property) { ?>
+                    <td>
+                        <?php echo "$property" ?>
+                    </td>
+                    <?php } ?>
+                </tr>
+                <?php } ?>
+            </tbody>
+            </table>
+        </section>
+
     </main>
 </body>
 </html>
