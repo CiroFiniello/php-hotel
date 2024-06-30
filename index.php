@@ -46,7 +46,28 @@
 //         echo "<br>";
 //     }
 // }
-$secondHotels = $hotels;
+$filteredHotels = $hotels;
+
+if (isset($_GET['parking'])) {
+    $parking = $_GET['parking'];
+    if ($parking == '1') { // With Parking
+        $tempArray = [];
+        foreach ($filteredHotels as $hotel) {
+            if ($hotel['parking'] == true) {
+                $tempArray[] = $hotel;
+            }
+        }
+        $filteredHotels = $tempArray;
+    } elseif ($parking == '2') { // Without Parking
+        $tempArray = [];
+        foreach ($filteredHotels as $hotel) {
+            if ($hotel['parking'] == false) {
+                $tempArray[] = $hotel;
+            }
+        }
+        $filteredHotels = $tempArray;
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,13 +81,13 @@ $secondHotels = $hotels;
     <main>
         <section class="row searchbar">
             <div class="col6">
-                <form action="" method="get">
+                <form action="./index.php" method="get">
                     <div class="mb-3">
                         <label for="parking">Parking?</label>
                         <select name="parking" id="parking">
-                            <option value="0">Not Needed</option>
-                            <option value="1">Without Parking</option>
-                            <option value="2">With Parking</option>
+                            <option value="0" selected>Not Needed</option>
+                            <option value="1">With Parking</option>
+                            <option value="2">Without Parking</option>
                         </select>
                         <button type="submit">
                             filter
@@ -98,7 +119,7 @@ $secondHotels = $hotels;
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($hotels as $hotel) {?>
+                <?php foreach ($filteredHotels as $hotel) {?>
                 <tr>
                     <?php foreach ($hotel as $property) { ?>
                     <td>
