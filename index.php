@@ -68,6 +68,20 @@ if (isset($_GET['parking'])) {
         $filteredHotels = $tempArray;
     }
 }
+
+if (isset($_GET['stars'])) {
+    $stars = $_GET['stars'];
+    if ($stars >= 1 && $stars <= 5) { // With Parking
+        $tempArray = [];
+        foreach ($filteredHotels as $hotel) {
+            if ($hotel['vote'] >= $stars) {
+                $tempArray[] = $hotel;
+            }
+        }
+        $filteredHotels = $tempArray;
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -82,18 +96,23 @@ if (isset($_GET['parking'])) {
         <section class="row searchbar">
             <div class="col6">
                 <form action="./index.php" method="get">
-                    <div class="mb-3">
-                        <label for="parking">Parking?</label>
-                        <select name="parking" id="parking">
+                    <div class="mb-3 d-flex align-items-baseline justify-content-center p-3">
+                        <label for="parking" class="m-1">Parking?</label>
+                        <select name="parking" id="parking" class="m-3">
                             <option value="0" selected>Not Needed</option>
                             <option value="1">With Parking</option>
                             <option value="2">Without Parking</option>
                         </select>
-                        <button type="submit">
-                            filter
-                        </button>
+                        <div class="mb-3">
+                            <label for="star">Rank</label>
+                            <input type="number" name="stars" id="stars" min="1" max="5">
+                        </div>
+                            <button type="submit">
+                                filter
+                            </button>
                     </div>
                 </form>
+
             </div>
             <div class="col6"></div>
         </section>
